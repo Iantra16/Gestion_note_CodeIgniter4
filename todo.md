@@ -10,7 +10,60 @@
   - user_group(id,user_id,group_id)
   - note(id,etu,ue_id,valeur)
 
-- connexion :
-    - 
+###  Model :
+- SemestreModel
+- ParcoursModel 
+- Parcour_ueModel
+- UeModel
+- UsersModel
+- EtudiantModel
+- GroupModel
+- User_groupModel
+- NoteModel
 
-### 
+
+### Controller :
+- SemestreController
+- ParcoursController
+- Parcour_ueController
+- UeController  
+- UsersController
+- EtudiantController
+- GroupController
+- User_groupController
+- NoteController
+- AuthController
+
+### View :
+- Login et signup
+- Etudiant/
+  - index :
+  - create :
+  - edit :
+
+- Semestre/
+  - index :
+  - create :
+  - edit :
+ 
+- Semestre/
+  - index :
+  - create :
+  - edit :
+  
+- Parcours/
+  - index :
+  - create :
+  - edit :
+- Parcour_ue/
+  - index :
+  - create :
+  - edit :
+- Ue/
+  - index :
+  - create :    
+  - edit :
+- Users/
+  - index :
+  - create :    
+  - edit :
