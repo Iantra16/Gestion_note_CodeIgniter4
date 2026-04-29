@@ -97,7 +97,7 @@ $availableUes = $uesByEtudiant[$selectedEtudiantId] ?? [];
     <table>
         <thead>
             <tr>
-                <th>Numéro</th>
+                <th>ETU</th>
                 <th>Nom complet</th>
                 <th>Action</th>
             </tr>

@@ -152,12 +152,6 @@ moyenne = SUM(note_max × credits) / SUM(credits)
 - [ ] Zone `<?= $this->renderSection('content') ?>`
 - [ ] Include du CSS compilé
 
-**SCSS**
-- [ ] Récupérer le fichier SCSS du prof
-- [ ] Installer `sass` : `npm install -g sass`
-- [ ] Compiler : `sass assets/scss/main.scss public/css/theme.css`
-- [ ] Ou ajouter un script npm watch pour le développement
-
 **Chaque vue étend le layout**
 ```php
 <?= $this->extend('layouts/main') ?>

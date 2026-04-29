@@ -37,4 +37,44 @@ class NoteController extends BaseController
     {
         return redirect()->to('/notes/create');
     }
+
+    public function index(): string
+    {
+        $notes = [
+            ['id' => 1, 'etudiant' => 'Andry Rakoto', 'ue' => 'Développement web', 'note' => 14.5, 'date' => '2026-04-01'],
+            ['id' => 2, 'etudiant' => 'Miora Rasoa', 'ue' => 'Base de données', 'note' => 12, 'date' => '2026-04-05'],
+            ['id' => 3, 'etudiant' => 'Nantenaina Rajaonah', 'ue' => 'Projet tuteuré', 'note' => 16.25, 'date' => '2026-04-10'],
+        ];
+
+        return view('notes/index', [
+            'pageTitle' => 'Liste des notes',
+            'pageSubtitle' => 'Modifier ou supprimer une note',
+            'activeMenu' => 'notes',
+            'notes' => $notes,
+        ]);
+    }
+
+    public function edit($id): string
+    {
+        $note = ['id' => (int) $id, 'etudiant_id' => 1, 'ue_id' => 10, 'note' => 14.5, 'date' => '2026-04-01'];
+
+        return view('notes/edit', [
+            'pageTitle' => 'Modifier une note',
+            'pageSubtitle' => 'Mettre à jour la note',
+            'activeMenu' => 'notes',
+            'note' => $note,
+        ]);
+    }
+
+    public function update($id)
+    {
+        // Ici on ferait la validation et la mise à jour en base.
+        return redirect()->to('/notes');
+    }
+
+    public function delete($id)
+    {
+        // Ici on supprimerait la note en base.
+        return redirect()->to('/notes');
+    }
 }

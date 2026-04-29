@@ -89,7 +89,7 @@ $etudiants = $etudiants ?? [
     <table>
         <thead>
             <tr>
-                <th>Numéro</th>
+                <th>ETU</th>
                 <th>Nom</th>
                 <th>Prénom</th>
                 <th>Parcours</th>
