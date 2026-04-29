@@ -8,7 +8,23 @@ class CreateAllTables extends Migration
 {
     public function up()
     {
-        // 1. Table parcours
+        // 1. Table semestre
+        $this->forge->addField([
+            'idSemestre' => [
+                'type'           => 'INT',
+                'constraint'     => 11,
+                'unsigned'       => true,
+                'auto_increment' => true,
+            ],
+            'numero'     => ['type' => 'INT', 'constraint' => 11, 'null' => false],
+            'libelle'    => ['type' => 'VARCHAR', 'constraint' => '50', 'null' => false],
+            'created_at' => ['type' => 'DATETIME', 'null' => true],
+            'updated_at' => ['type' => 'DATETIME', 'null' => true],
+        ]);
+        $this->forge->addKey('idSemestre', true);
+        $this->forge->createTable('semestre');
+
+        // 2. Table parcours
         $this->forge->addField([
             'id' => [
                 'type'           => 'INT',
@@ -16,16 +32,53 @@ class CreateAllTables extends Migration
                 'unsigned'       => true,
                 'auto_increment' => true,
             ],
-            'nom'        => ['type' => 'VARCHAR', 'constraint' => '100', 'null' => false],
-            'created_at' => ['type' => 'DATETIME', 'null' => true],
-            'updated_at' => ['type' => 'DATETIME', 'null' => true],
+            'nom'          => ['type' => 'VARCHAR', 'constraint' => '100', 'null' => false],
+            'responsable'  => ['type' => 'VARCHAR', 'constraint' => '255', 'null' => true],
+            'created_at'   => ['type' => 'DATETIME', 'null' => true],
+            'updated_at'   => ['type' => 'DATETIME', 'null' => true],
         ]);
         $this->forge->addKey('id', true);
         $this->forge->createTable('parcours');
 
-        // 2. Table semestres
+        // 3. Table ue
         $this->forge->addField([
             'id' => [
+                'type'           => 'INT',
+                'constraint'     => 11,
+                'unsigned'       => true,
+                'auto_increment' => true,
+            ],
+            'code'       => ['type' => 'VARCHAR', 'constraint' => '20', 'null' => false],
+            'intitule'   => ['type' => 'VARCHAR', 'constraint' => '255', 'null' => false],
+            'credit'     => ['type' => 'INT', 'constraint' => 11, 'null' => false],
+            'created_at' => ['type' => 'DATETIME', 'null' => true],
+            'updated_at' => ['type' => 'DATETIME', 'null' => true],
+        ]);
+        $this->forge->addKey('id', true);
+        $this->forge->addUniqueKey('code');
+        $this->forge->createTable('ue');
+
+        // 4. Table etudiant
+        $this->forge->addField([
+            'id'         => [
+                'type'           => 'INT',
+                'constraint'     => 11,
+                'unsigned'       => true,
+                'auto_increment' => true,
+            ],
+            'num_etu'    => ['type' => 'VARCHAR', 'constraint' => '20', 'null' => false],
+            'nom'        => ['type' => 'VARCHAR', 'constraint' => '255', 'null' => false],
+            'prenom'     => ['type' => 'VARCHAR', 'constraint' => '255', 'null' => false],
+            'created_at' => ['type' => 'DATETIME', 'null' => true],
+            'updated_at' => ['type' => 'DATETIME', 'null' => true],
+        ]);
+        $this->forge->addKey('id', true);
+        $this->forge->addUniqueKey('num_etu');
+        $this->forge->createTable('etudiant');
+
+        // 5. Table groups
+        $this->forge->addField([
+            'id'         => [
                 'type'           => 'INT',
                 'constraint'     => 11,
                 'unsigned'       => true,
@@ -36,92 +89,95 @@ class CreateAllTables extends Migration
             'updated_at' => ['type' => 'DATETIME', 'null' => true],
         ]);
         $this->forge->addKey('id', true);
-        $this->forge->createTable('semestres');
+        $this->forge->createTable('groups');
 
-        // 3. Table users
+        // 6. Table users
         $this->forge->addField([
-            'id' => [
+            'id'         => [
                 'type'           => 'INT',
                 'constraint'     => 11,
                 'unsigned'       => true,
                 'auto_increment' => true,
             ],
-            'username'   => ['type' => 'VARCHAR', 'constraint' => '50', 'null' => false],
-            'password'   => ['type' => 'VARCHAR', 'constraint' => '255', 'null' => false],
+            'nom'        => ['type' => 'VARCHAR', 'constraint' => '255', 'null' => false],
+            'prenom'     => ['type' => 'VARCHAR', 'constraint' => '255', 'null' => true],
+            'pwd'        => ['type' => 'VARCHAR', 'constraint' => '255', 'null' => false],
             'created_at' => ['type' => 'DATETIME', 'null' => true],
             'updated_at' => ['type' => 'DATETIME', 'null' => true],
         ]);
         $this->forge->addKey('id', true);
-        $this->forge->addUniqueKey('username');
         $this->forge->createTable('users');
 
-        // 4. Table etudiants
+        // 7. Table user_group
         $this->forge->addField([
-            'id' => [
+            'id'         => [
                 'type'           => 'INT',
                 'constraint'     => 11,
                 'unsigned'       => true,
                 'auto_increment' => true,
             ],
-            'nom'         => ['type' => 'VARCHAR', 'constraint' => '100', 'null' => false],
-            'prenom'      => ['type' => 'VARCHAR', 'constraint' => '100', 'null' => true],
-            'id_parcours' => ['type' => 'INT', 'constraint' => 11, 'unsigned' => true, 'null' => true],
-            'created_at'  => ['type' => 'DATETIME', 'null' => true],
-            'updated_at'  => ['type' => 'DATETIME', 'null' => true],
+            'user_id'    => ['type' => 'INT', 'constraint' => 11, 'unsigned' => true, 'null' => false],
+            'group_id'   => ['type' => 'INT', 'constraint' => 11, 'unsigned' => true, 'null' => false],
+            'created_at' => ['type' => 'DATETIME', 'null' => true],
+            'updated_at' => ['type' => 'DATETIME', 'null' => true],
         ]);
         $this->forge->addKey('id', true);
-        $this->forge->addForeignKey('id_parcours', 'parcours', 'id', 'CASCADE', 'SET NULL');
-        $this->forge->createTable('etudiants');
+        $this->forge->addForeignKey('user_id', 'users', 'id', 'CASCADE', 'CASCADE');
+        $this->forge->addForeignKey('group_id', 'groups', 'id', 'CASCADE', 'CASCADE');
+        $this->forge->createTable('user_group');
 
-        // 5. Table ues
+        // 8. Table parcour_ue
         $this->forge->addField([
-            'id' => [
+            'id'          => [
                 'type'           => 'INT',
                 'constraint'     => 11,
                 'unsigned'       => true,
                 'auto_increment' => true,
             ],
-            'code'        => ['type' => 'VARCHAR', 'constraint' => '20', 'null' => false],
-            'libelle'     => ['type' => 'VARCHAR', 'constraint' => '255', 'null' => false],
-            'credits'     => ['type' => 'INT', 'constraint' => 11, 'default' => 0],
-            'id_semestre' => ['type' => 'INT', 'constraint' => 11, 'unsigned' => true, 'null' => true],
-            'id_parcours' => ['type' => 'INT', 'constraint' => 11, 'unsigned' => true, 'null' => true],
+            'parcours_id' => ['type' => 'INT', 'constraint' => 11, 'unsigned' => true, 'null' => false],
+            'ue_id'       => ['type' => 'INT', 'constraint' => 11, 'unsigned' => true, 'null' => false],
+            'semestre_id' => ['type' => 'INT', 'constraint' => 11, 'unsigned' => true, 'null' => false],
+            'obli'        => ['type' => 'BOOLEAN', 'default' => true],
+            'groupe'      => ['type' => 'VARCHAR', 'constraint' => '50', 'null' => true],
             'created_at'  => ['type' => 'DATETIME', 'null' => true],
             'updated_at'  => ['type' => 'DATETIME', 'null' => true],
         ]);
         $this->forge->addKey('id', true);
-        $this->forge->addUniqueKey('code');
-        $this->forge->addForeignKey('id_semestre', 'semestres', 'id', 'CASCADE', 'CASCADE');
-        $this->forge->addForeignKey('id_parcours', 'parcours', 'id', 'CASCADE', 'CASCADE');
-        $this->forge->createTable('ues');
+        $this->forge->addForeignKey('parcours_id', 'parcours', 'id', 'CASCADE', 'CASCADE');
+        $this->forge->addForeignKey('ue_id', 'ue', 'id', 'CASCADE', 'CASCADE');
+        $this->forge->addForeignKey('semestre_id', 'semestre', 'idSemestre', 'CASCADE', 'CASCADE');
+        $this->forge->createTable('parcour_ue');
 
-        // 6. Table notes
+        // 9. Table note
         $this->forge->addField([
-            'id' => [
+            'id'         => [
                 'type'           => 'INT',
                 'constraint'     => 11,
                 'unsigned'       => true,
                 'auto_increment' => true,
             ],
-            'id_etudiant' => ['type' => 'INT', 'constraint' => 11, 'unsigned' => true, 'null' => false],
-            'id_ue'       => ['type' => 'INT', 'constraint' => 11, 'unsigned' => true, 'null' => false],
-            'note'        => ['type' => 'DECIMAL', 'constraint' => '4,2', 'null' => false],
-            'created_at'  => ['type' => 'DATETIME', 'null' => true],
-            'updated_at'  => ['type' => 'DATETIME', 'null' => true],
+            'etu_id'     => ['type' => 'INT', 'constraint' => 11, 'unsigned' => true, 'null' => false],
+            'ue_id'      => ['type' => 'INT', 'constraint' => 11, 'unsigned' => true, 'null' => false],
+            'valeur'     => ['type' => 'DECIMAL', 'constraint' => '4,2', 'null' => false],
+            'created_at' => ['type' => 'DATETIME', 'null' => true],
+            'updated_at' => ['type' => 'DATETIME', 'null' => true],
         ]);
         $this->forge->addKey('id', true);
-        $this->forge->addForeignKey('id_etudiant', 'etudiants', 'id', 'CASCADE', 'CASCADE');
-        $this->forge->addForeignKey('id_ue', 'ues', 'id', 'CASCADE', 'CASCADE');
-        $this->forge->createTable('notes');
+        $this->forge->addForeignKey('etu_id', 'etudiant', 'id', 'CASCADE', 'CASCADE');
+        $this->forge->addForeignKey('ue_id', 'ue', 'id', 'CASCADE', 'CASCADE');
+        $this->forge->createTable('note');
     }
 
     public function down()
     {
-        $this->forge->dropTable('notes');
-        $this->forge->dropTable('ues');
-        $this->forge->dropTable('etudiants');
+        $this->forge->dropTable('note');
+        $this->forge->dropTable('parcour_ue');
+        $this->forge->dropTable('user_group');
         $this->forge->dropTable('users');
-        $this->forge->dropTable('semestres');
+        $this->forge->dropTable('groups');
+        $this->forge->dropTable('etudiant');
+        $this->forge->dropTable('ue');
         $this->forge->dropTable('parcours');
+        $this->forge->dropTable('semestre');
     }
 }

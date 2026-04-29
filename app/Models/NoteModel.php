@@ -6,29 +6,29 @@ use CodeIgniter\Model;
 
 class NoteModel extends Model
 {
-    protected $table = 'notes';
+    protected $table = 'note';
     protected $primaryKey = 'id';
     protected $useTimestamps = true;
-    protected $allowedFields = ['id_etudiant', 'id_ue', 'note'];
+    protected $allowedFields = ['etu_id', 'ue_id', 'valeur'];
 
     // Règles de validation
     protected $validationRules = [
-        'id_etudiant' => 'required|numeric',
-        'id_ue'       => 'required|numeric',
-        'note'        => 'required|numeric|greater_than_equal_to[0]|less_than_equal_to[20]',
+        'etu_id' => 'required|numeric',
+        'ue_id'  => 'required|numeric',
+        'valeur' => 'required|numeric|greater_than_equal_to[0]|less_than_equal_to[20]',
     ];
 
     // Messages d'erreur en français
     protected $validationMessages = [
-        'id_etudiant' => [
+        'etu_id' => [
             'required'    => 'L\'étudiant est obligatoire.',
             'numeric'     => 'L\'étudiant doit être un nombre valide.',
         ],
-        'id_ue' => [
+        'ue_id' => [
             'required'    => 'L\'UE est obligatoire.',
             'numeric'     => 'L\'UE doit être un nombre valide.',
         ],
-        'note' => [
+        'valeur' => [
             'required'                => 'La note est obligatoire.',
             'numeric'                 => 'La note doit être un nombre.',
             'greater_than_equal_to'   => 'La note doit être supérieure ou égale à 0.',

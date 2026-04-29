@@ -9,23 +9,26 @@ class UserModel extends Model
     protected $table = 'users';
     protected $primaryKey = 'id';
     protected $useTimestamps = true;
-    protected $allowedFields = ['username', 'password'];
+    protected $allowedFields = ['nom', 'prenom', 'pwd'];
 
     // Règles de validation
     protected $validationRules = [
-        'username' => 'required|min_length[3]|max_length[50]|is_unique[users.username]',
-        'password' => 'required|min_length[6]|max_length[255]',
+        'nom'   => 'required|min_length[3]|max_length[255]',
+        'prenom' => 'permit_empty|max_length[255]',
+        'pwd'   => 'required|min_length[6]|max_length[255]',
     ];
 
     // Messages d'erreur en français
     protected $validationMessages = [
-        'username' => [
-            'required'    => 'Le nom d\'utilisateur est obligatoire.',
-            'min_length'  => 'Le nom d\'utilisateur doit avoir au minimum 3 caractères.',
-            'max_length'  => 'Le nom d\'utilisateur ne doit pas dépasser 50 caractères.',
-            'is_unique'   => 'Ce nom d\'utilisateur existe déjà.',
+        'nom' => [
+            'required'    => 'Le nom est obligatoire.',
+            'min_length'  => 'Le nom doit avoir au minimum 3 caractères.',
+            'max_length'  => 'Le nom ne doit pas dépasser 255 caractères.',
         ],
-        'password' => [
+        'prenom' => [
+            'max_length'  => 'Le prénom ne doit pas dépasser 255 caractères.',
+        ],
+        'pwd' => [
             'required'    => 'Le mot de passe est obligatoire.',
             'min_length'  => 'Le mot de passe doit avoir au minimum 6 caractères.',
             'max_length'  => 'Le mot de passe ne doit pas dépasser 255 caractères.',
