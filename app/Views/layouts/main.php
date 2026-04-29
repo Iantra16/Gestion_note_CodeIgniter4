@@ -36,7 +36,11 @@ $authUser = $authUser ?? [
             <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M4 4.5A2.5 2.5 0 0 1 6.5 7H20"/><path d="M20 4v16"/><path d="M6 7v10"/></svg>
             Étudiants
         </a>
-        <a href="/notes/create" class="nav-item <?= $activeMenu === 'notes' ? 'active' : '' ?>">
+        <a href="/notes" class="nav-item <?= $activeMenu === 'notes' ? 'active' : '' ?>">
+            <svg viewBox="0 0 24 24"><path d="M3 7h18M3 12h18M3 17h18"/></svg>
+            Liste des notes
+        </a>
+        <a href="/notes/create" class="nav-item <?= $activeMenu === 'notes-create' ? 'active' : '' ?>">
             <svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
             Saisir une note
         </a>

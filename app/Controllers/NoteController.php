@@ -9,7 +9,7 @@ class NoteController extends BaseController
         return view('notes/create', [
             'pageTitle' => 'Saisir une note',
             'pageSubtitle' => 'Enregistrer une note',
-            'activeMenu' => 'notes',
+            'activeMenu' => 'notes-create',
             'etudiants' => [
                 ['id' => 1, 'numero' => 'E-2401', 'nom' => 'Rakoto', 'prenom' => 'Andry'],
                 ['id' => 2, 'numero' => 'E-2402', 'nom' => 'Rasoa', 'prenom' => 'Miora'],
