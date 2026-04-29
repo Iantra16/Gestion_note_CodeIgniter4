@@ -1,7 +1,7 @@
 <?php
 $pageTitle = $pageTitle ?? 'Connexion';
-$username = $username ?? 'admin';
-$password = $password ?? 'admin123';
+$errorMessage = session()->getFlashdata('error');
+$nom = old('nom') ?? '';
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -31,28 +31,28 @@ $password = $password ?? 'admin123';
         <?php if (! empty($errorMessage)) : ?>
             <div class="alert alert-danger">
                 <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-                <span><?= esc($errorMessage) ?></span>
+                <span><?= esc((string) $errorMessage) ?></span>
             </div>
         <?php endif; ?>
 
         <form action="/login" method="post" class="login-form">
             <div class="field-group">
-                <label for="username">Nom d'utilisateur</label>
+                <label for="nom">Nom</label>
                 <div class="input-wrap">
                     <div class="icon">
                         <svg viewBox="0 0 24 24"><path d="M20 21a8 8 0 0 0-16 0"/><circle cx="12" cy="8" r="4"/></svg>
                     </div>
-                    <input id="username" name="username" type="text" value="<?= esc($username) ?>" placeholder="admin" />
+                    <input id="nom" name="nom" type="text" value="<?= esc($nom) ?>" placeholder="Entrez votre nom" />
                 </div>
             </div>
 
             <div class="field-group">
-                <label for="password">Mot de passe</label>
+                <label for="pwd">Mot de passe</label>
                 <div class="input-wrap">
                     <div class="icon">
                         <svg viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
                     </div>
-                    <input id="password" name="password" type="password" value="<?= esc($password) ?>" placeholder="admin123" />
+                    <input id="pwd" name="pwd" type="password" placeholder="Entrez votre mot de passe" />
                 </div>
             </div>
 
@@ -70,7 +70,7 @@ $password = $password ?? 'admin123';
             </button>
         </form>
 
-        <div class="login-footer">Identifiants de démonstration : admin / admin123</div>
+        <div class="login-footer">Utilisateur de test : admin / admin123</div>
     </div>
 </div>
 

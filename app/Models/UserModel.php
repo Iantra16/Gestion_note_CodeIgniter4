@@ -11,6 +11,10 @@ class UserModel extends Model
     protected $useTimestamps = true;
     protected $allowedFields = ['nom', 'prenom', 'pwd'];
 
+    // Événements : hasher le password avant insertion/mise à jour
+    protected $beforeInsert = ['hashPassword'];
+    protected $beforeUpdate = ['hashPassword'];
+
     // Règles de validation
     protected $validationRules = [
         'nom'   => 'required|min_length[3]|max_length[255]',
@@ -34,4 +38,15 @@ class UserModel extends Model
             'max_length'  => 'Le mot de passe ne doit pas dépasser 255 caractères.',
         ],
     ];
+
+    /**
+     * Hash le mot de passe avant insertion/mise à jour.
+     */
+    protected function hashPassword(array $data)
+    {
+        if (isset($data['data']['pwd'])) {
+            $data['data']['pwd'] = password_hash($data['data']['pwd'], PASSWORD_BCRYPT);
+        }
+        return $data;
+    }
 }
